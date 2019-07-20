@@ -1,0 +1,54 @@
+sphere
+500 500 500
+100
+255 0 255
+reflect = false
+
+plane
+0 0 700
+0 0 1.0
+255 255 255
+reflect = true
+
+plane
+0 0 200
+0 0 -1.0
+255 255 255
+reflect = true
+
+plane
+700 0 500
+1.0 0 0.1
+255 255 255
+reflect = true
+
+plane
+200 0 500
+-1.0 0 0.1
+255 255 255
+reflect = true
+
+plane
+0 200 500
+0 -15.0 -0.1
+255 255 255
+reflect = true
+
+plane
+0 700 500
+0 15.0 0.1
+255 255 255
+reflect = true
+
+light
+250 150 650
+255 255 255
+
+light
+650 150 250
+255 255 255
+
+camera
+500 500 201
+0 0 500
+0 1.0 0

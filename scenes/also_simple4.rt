@@ -1,0 +1,67 @@
+cone
+100 -300 1300
+0.1 1.0 0
+0 255 50
+0.3
+reflect = true
+
+sphere
+-200 -400 3000
+300
+150 255 0
+reflect = true
+
+sphere
+200 -200 1000
+100
+0 150 255
+reflect = false
+
+sphere
+100 -50 800
+50
+150 0 255
+reflect = false
+
+plane
+1000 0 1000
+1.0 0 0.1
+255 0 100
+reflect = false
+
+plane
+0 0 5000
+0 0 1.0
+0 255 100
+reflect = false
+
+plane
+-1000 0 1000
+-1.0 0 -0.1
+50 255 100
+reflect = false
+
+plane
+0 -800 1000
+0 -15.0 0.1
+255 255 100
+reflect = false
+
+plane
+0 200 1000
+0 15.0 0.1
+255 150 0
+reflect = true
+
+light
+0 0 500
+255 255 255
+
+light
+1000 0 500
+255 255 255
+
+camera
+-200 0 -2000
+0 0 0
+0 1.0 0
