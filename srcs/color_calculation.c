@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   color_calculation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:26:25 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/18 11:46:52 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 14:41:59 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_color		color_add_value(t_color color, double r, double g, double b)
 {
-	color.r = r;
-	color.g = g;
-	color.b = b;
+	color.r = color.r + r;
+	color.g = color.g + g;
+	color.b = color.b + b;
 	return (color);
 }
 

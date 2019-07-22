@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 11:42:51 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 15:39:01 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 18:22:38 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,19 @@ int			reflect_extract(int fd)
 	if (!(split = ft_strsplit(line, ' ')))
 		fail(3);
 	if (ft_strcmp(split[2], "true") == 0)
-		return (1);
+		return (TRUE);
 	else
-		return (0);
+		return (FALSE);
+}
+
+double		refract_extract(int fd)
+{
+	char	*line;
+	char	**split;
+
+	if (get_next_line(fd, &line) <= 0)
+		fail(4);
+	if (!(split = ft_strsplit(line, ' ')))
+		fail(3);
+	return (ft_atoi(split[2]));
 }

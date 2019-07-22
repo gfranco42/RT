@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 12:18:42 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 19:24:16 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 18:43:55 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ typedef struct	s_tools
 	int		x;
 	int		y;
 	int		i;
+	double	n1;
+	double	n2;
 	double	t;
 	double	p;
 	double	s1;
@@ -179,7 +181,7 @@ typedef struct	s_i
 	int		j;
 	int		ref;
 	int		cm;
-	int		lt;
+	int		idx;
 	int		nb;
 	int		tmp;
 	double	dbl;
@@ -189,6 +191,7 @@ typedef	struct	s_prim
 {
 	t_type				type;
 	int					reflect;
+	double				refract;
 	t_sphere			sphere;
 	t_plane				plane;
 	t_cone				cone;
@@ -229,6 +232,7 @@ void			draw_sphere(t_base base, t_prim *prim, t_mlx mlx, t_i i);
 t_vector		getnm_co(t_vector	inter_p, t_cone cone, t_ray ray, double t);
 t_vector		gtnm_cyl(t_cylinder cyl, t_vector i_p, t_ray ray, double t);
 t_vector		getnormal_sphere(t_sphere sphere, t_vector inter_p);
+t_vector		getnmpri(t_prim *prim, t_vector inter_p, t_base base, double t);
 void			initialize_ray(t_cam cam, t_base *base);
 t_cone			init_cone(t_cone cone);
 t_cylinder		init_cylinder(t_cylinder cylinder);
@@ -266,9 +270,13 @@ t_prim			*parser(char *file, int number, t_prim *prim);
 void			print_pixel(t_mlx mlx, t_tools tools, t_color color);
 double			power(double i, int power_value);
 void			put_color(int x, int y, unsigned int *str, double dt);
-void			reflection(double t, t_base *base, t_prim *prim);
+void			reflection(t_base *base, t_prim *prim);
+void			reflect_algo(t_base *base, t_prim *prim, t_i *i);
 void			reflect_check(char *line);
 int				reflect_extract(int fd);
+void			refraction(t_base *base, t_prim *prim);
+void			refract_check(char *line);
+double			refract_extract(int fd);
 int				shadow(t_prim *prim, t_i i, t_light light, t_vector inter_p);
 t_color			specular_l(t_vector norm, t_vector half, t_color c, int sign);
 void			sphere_ch(int fd);

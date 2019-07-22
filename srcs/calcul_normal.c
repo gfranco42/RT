@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 11:10:37 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 18:47:35 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 16:14:57 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ t_vector	getnm_co(t_vector inter_p, t_cone cone, t_ray ray, double t)
 	if (dot(ray.dir, normal) > 0.0001)
 		normal = vec_mult_d(normal, -1);
 	return (normal);
+}
+
+t_vector	getnmpri(t_prim *prim, t_vector inter_p, t_base base, double t)
+{
+	t_vector	nm;
+
+	if (prim[base.tools.i].type == SPHERE)
+	{
+		(void)base;
+		(void)t;
+		nm = getnormal_sphere(prim[base.tools.i].sphere, inter_p);
+	}
+	else if (prim[base.tools.i].type == CONE)
+		nm = getnm_co(inter_p, prim[base.tools.i].cone, base.ray, t);
+	else if (prim[base.tools.i].type == CYLINDER)
+		nm = gtnm_cyl(prim[base.tools.i].cyl, inter_p, base.ray, t);
+	else
+		nm = vec_add_double(prim[base.tools.i].plane.normal, 0);
+	return (nm);
 }

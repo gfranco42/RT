@@ -50,7 +50,7 @@ reflect = false
 plane
 0 200 1000
 0 15.0 0.1
-255 150 0
+255 255 255
 reflect = true
 
 light

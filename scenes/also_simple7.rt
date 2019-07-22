@@ -1,0 +1,30 @@
+plane
+500 1000 500
+0 1.0 0.1
+150 255 0
+reflect = false
+refract = 0
+
+sphere
+500 500 500
+100
+0 150 255
+reflect = false
+refract = 1.5
+
+cylinder
+1000 500 500
+-1.0 1.0 0.1
+150 0 255
+50
+reflect = false
+refract = 0
+
+light
+1000 0 0
+255 255 255
+
+camera
+500 0 -2000
+500 500 500
+0 1.0 0

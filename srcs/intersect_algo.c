@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:15:18 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 18:00:20 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 18:43:11 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	get_tools_value(t_base *base, t_i i)
 double		intersect_prim_first(t_prim *prim, int i, t_base base)
 {
 
-	//printf("i: %d, base i: %d\n", i, base.tools.i);
 	if (prim[i].type == SPHERE)
 		base.tools.t = sphere_intersect(prim[i].sphere, base.ray, base.tools.t);
 	else if (prim[i].type == PLANE)
@@ -34,6 +33,7 @@ double		intersect_prim_first(t_prim *prim, int i, t_base base)
 }
 
 //			renvoie la distance et l'index de l'objet qui a une intersection
+//			premiere intersection a partir de la camera
 void		intersect_first(t_prim *prim, t_i *i, t_base *base)
 {
 	i->dbl = 200000;
@@ -50,6 +50,11 @@ void		intersect_first(t_prim *prim, t_i *i, t_base *base)
 			base->tools.i = i->i;
 		}
 	}
+	// premierlancer de rayon depuis la cam:
+	// n1 = air
+	// n2 = indice de l'objet qu'on vient d'intersecter
+	base->tools.n1 = 1.0;
+	base->tools.n2 = prim[base->tools.i].refract;
 }
 
 double		intersect_prim(t_prim *prim, t_i i, t_base base)
@@ -76,15 +81,11 @@ void		intersect(t_prim *prim, t_i *i, t_base *base)
 	while (++i->i < i->nb)
 	{
 		i->dbl = intersect_prim(prim, *i, *base);
-//		printf("dbl: %lf t:%lf\n", i->dbl, base->tools.t);
 		if (i->dbl < base->tools.t)
 		{
 			base->tools.t = i->dbl;
 			base->tools.i = i->i;
 		}
 	}
-//	printf("   3    t: %lf\n", base->tools.t);
-//	printf("   3    i: %d\n", base->tools.i);
-//	printf("   3    origin: %lf %lf %lf\n", base->ray.origin.x, base->ray.origin.y, base->ray.origin.z);
-//	printf("   3    direction: %lf %lf %lf\n", base->ray.dir.x, base->ray.dir.y, base->ray.dir.z);
+	base->tools.n2 = prim[base->tools.i].refract;
 }

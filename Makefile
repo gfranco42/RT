@@ -6,7 +6,7 @@
 #    By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/10 12:13:05 by gfranco           #+#    #+#              #
-#    Updated: 2019/07/20 19:20:34 by gfranco          ###   ########.fr        #
+#    Updated: 2019/07/22 18:24:05 by gfranco          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,15 @@ INCDIR =	./includes
 
 OBJDIR =	./objs
 
-SRC =		calcul_base.c camera_check.c cone_check.c cylinder_check.c        \
-			draw_prim.c event.c extract_data.c initialize.c init_prim.c       \
-			lexer.c light_check.c main.c objects_check.c parser.c             \
-			plane_check.c sphere_check.c light_calculation.c                  \
-			multi_light_calculation.c reflection.c shadow.c                   \
-			vec_calculation.c vec_calculation2.c calcul_normal.c              \
-			intersections.c light_intersections.c main_algo.c                 \
-			extract_data2.c intersect_algo.c check_tools.c color_calculation.c
+SRC =		calcul_base.c camera_check.c cone_check.c cylinder_check.c         \
+			draw_prim.c event.c extract_data.c initialize.c init_prim.c        \
+			lexer.c light_check.c main.c objects_check.c parser.c              \
+			plane_check.c sphere_check.c light_calculation.c                   \
+			multi_light_calculation.c reflection.c shadow.c                    \
+			vec_calculation.c vec_calculation2.c calcul_normal.c               \
+			intersections.c light_intersections.c main_algo.c                  \
+			extract_data2.c intersect_algo.c check_tools.c color_calculation.c \
+			refraction.c
 
 INC =		rt.h
 

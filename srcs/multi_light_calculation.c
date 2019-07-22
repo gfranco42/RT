@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 11:27:36 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 19:22:58 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 14:59:16 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_color		multi_l_co(t_prim *prim, t_base base, t_color color, t_i i)
 	t_color		final;
 
 	final = color_define_value(0, 0, 0);
-	i.j = -1;
 	v[1] = vec_add(base.ray.origin, vec_mult_d(base.ray.dir, base.tools.t));
 	v[3] = getnm_co(v[1], prim[base.tools.i].cone, base.ray, base.tools.t);
 	v[0] = nrmz(base.ray.dir);
@@ -45,6 +44,13 @@ t_color		multi_l_co(t_prim *prim, t_base base, t_color color, t_i i)
 			l_e.s = specular_l(v[3], v[2], prim[i.j].light.color, -1.0);
 			if (shadow(prim, i, prim[i.j].light, v[2]) == 0)
 				final = color_add(final, l_effect(l_e.d, l_e.s, l_e.a, color));
+
+//				ATTENUATION COULEUR MIROIR
+			/*if (prim[i.idx].reflect == TRUE)
+			{
+				final = color_add_value(final, final.r / -4, final.g / -4,
+				final.b / -4);
+			}*/
 		}
 	}
 	return (cap(final));
@@ -72,6 +78,13 @@ t_color		multi_l_cy(t_prim *prim, t_base base, t_color color, t_i i)
 			l_e.s = specular_l(v[3], v[2], prim[i.j].light.color, -1.0);
 			if (shadow(prim, i, prim[i.j].light, v[2]) == 0)
 				final = color_add(final, l_effect(l_e.d, l_e.s, l_e.a, color));
+
+//				ATTENUATION COULEUR MIROIR
+			/*if (prim[i.idx].reflect == TRUE)
+			{
+				final = color_add_value(final, final.r / -4, final.g / -4,
+				final.b / -4);
+			}*/
 		}
 	}
 	return (cap(final));
@@ -98,6 +111,13 @@ t_color		multi_l_s(t_prim *prim, t_base base, t_color color, t_i i)
 			l_e.s = specular_l(v[3], v[2], prim[i.j].light.color, 1.0);
 			if (shadow(prim, i, prim[i.j].light, v[2]) == 0)
 				final = color_add(final, l_effect(l_e.d, l_e.s, l_e.a, color));
+
+//				ATTENUATION COULEUR MIROIR
+		/*	if (prim[i.idx].reflect == TRUE)
+			{
+				final = color_add_value(final, final.r / -4, final.g / -4,
+				final.b / -4);
+			}*/
 		}
 	}
 	return (cap(final));
@@ -125,6 +145,13 @@ t_color		multi_l_p(t_prim *prim, t_base base, t_color color, t_i i)
 			l_e.s = color_define_value(0, 0, 0);
 			if (shadow(prim, i, prim[i.j].light, v[1]) == 0)
 				final = color_add(final, l_effect(l_e.d, l_e.s, l_e.a, color));
+
+//				ATTENUATION COULEUR MIROIR
+			/*if (prim[i.idx].reflect == TRUE)
+			{
+				final = color_add_value(final, final.r / -4, final.g / -4,
+				final.b / -4);
+			}*/
 		}
 	}
 	return (cap(final));

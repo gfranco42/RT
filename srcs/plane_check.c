@@ -6,11 +6,22 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 19:59:41 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 14:09:25 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/22 18:47:47 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+
+void		plane_check_ext(int fd, char *line)
+{
+	if (get_next_line(fd, &line) > 0)
+		refract_check(line);
+	else
+		fail(1);
+	if (ft_strcmp(line, "") == 0)
+		fail(1);
+	free(line);
+}
 
 void		plane_ch(int fd)
 {
@@ -38,6 +49,7 @@ void		plane_ch(int fd)
 	if (ft_strcmp(line, "") == 0)
 		fail(1);
 	free(line);
+	plane_check_ext(fd, line);
 }
 
 void		plane_fill(int fd, t_prim *prim, int index)
@@ -48,5 +60,6 @@ void		plane_fill(int fd, t_prim *prim, int index)
 	prim[index].plane.color = color_extract(fd);
 	prim[index].plane.color = first_cap(prim[index].plane.color);
 	prim[index].reflect = reflect_extract(fd);
+	prim[index].refract = refract_extract(fd);
 	prim[index].type = PLANE;
 }
