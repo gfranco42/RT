@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfranco <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/01 18:37:08 by gfranco           #+#    #+#             */
-/*   Updated: 2018/11/12 16:59:32 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/23 17:22:23 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ char				**ft_strsplit(char const *s, char c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strtrim(char const *s);
-void				ft_swap(int a, int b);
+void				ft_swap(int *a, int *b);
+void				ft_swap_double(double *a, double *b);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 #endif

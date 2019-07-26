@@ -5,26 +5,56 @@ plane
 reflect = false
 refract = 0
 
+plane
+1000 1000 500
+1.0 0 0.1
+255 0 100
+reflect = false
+refract = 0
+
+plane
+0 1000 500
+-1.0 0 -0.1
+0 100 255
+reflect = false
+refract = 0
+
 sphere
-500 500 500
+500 500 -4000
 100
 0 150 255
 reflect = false
-refract = 1.5
+refract = 1.54
+
+cylinder
+500 500 1000
+0 1.0 0
+0 255 150
+100
+reflect = false
+refract = 0
+
+cylinder
+500 1000 500
+0 1.0 15.0
+255 0 150
+50
+reflect = false
+refract = 0
 
 cylinder
 1000 500 500
 -1.0 1.0 0.1
-150 0 255
+255 255 0
 50
 reflect = false
 refract = 0
 
 light
-1000 0 0
+600 0 400
 255 255 255
 
 camera
-500 0 -2000
+500 500 -5000
 500 500 500
 0 1.0 0

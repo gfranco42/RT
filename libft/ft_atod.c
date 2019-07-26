@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/02 08:23:50 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/23 17:21:16 by gfranco          ###   ########.fr       */
+/*   Created: 2019/07/23 13:13:21 by gfranco           #+#    #+#             */
+/*   Updated: 2019/07/23 13:13:51 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap(int *a, int *b)
-{
-	int		c;
+#include "libft.h"
 
-	c = *a;
-	*a = *b;
-	*b = c;
+double		atod(char *str)
+{
+	double	res;
+	char	**split;
+
+	if (str_isdot(str) == 1)
+	{
+		if (!(split = ft_strsplit(str, '.')))
+			fail(3);
+		res = get_double(split);
+		free_tab(split, 2);
+	}
+	else
+	{
+		res = ft_atoi(str);
+		(void)split;
+	}
+	free(str);
+	return (res);
 }

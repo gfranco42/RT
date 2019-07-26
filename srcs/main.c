@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 12:09:17 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/20 14:05:13 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/24 11:10:28 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			main(int ac, char **av)
 	i.i = -1;
 	find_cam(&i, prim);
 	initialize_ray(prim[i.cm].cam, &base);
+	base.tools.i = 0;
 	base.upleft = upleft_calc(base);
 	i.i = -1;
 	win_create(&mlx);

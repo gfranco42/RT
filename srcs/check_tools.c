@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 12:57:47 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:21:18 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/23 14:41:57 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		reflect_check(char *line)
 void		refract_check(char *line)
 {
 	char	**split;
+	double	check;
 
 	if (!(split = ft_strsplit(line, ' ')))
 		fail(3);
@@ -33,6 +34,7 @@ void		refract_check(char *line)
 		fail(1);
 	if (str_isdouble(split[2]) == 0)
 		fail(1);
-	if (ft_atoi(split[2]) > 2.0 || ft_atoi(split[2]) < 0.0)
+	check = atod(split[2]);
+	if ((check) > 2.0 || ft_atoi(split[2]) < 0.0)
 		fail(1);
 }

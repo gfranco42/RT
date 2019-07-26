@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 12:18:42 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:43:55 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:44:23 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct	s_base
 	t_cam		cam;
 	t_vector	upleft;
 	t_tools		tools;
+	int			in;
 }				t_base;
 
 typedef struct	s_mlx
@@ -201,11 +202,13 @@ typedef	struct	s_prim
 }				t_prim;
 
 double			ambient_l(t_vector eye, t_vector normal, double intensity);
+double			atod(char *str);
 void			calc_dir(t_vector upleft, t_base *base);
 void			camera_ch(int fd);
 void			camera_fill(int fd, t_prim *prim, int index);
 t_color			cap(t_color color);
 int				check_vec3(char *line);
+double			clamp(int i, int j, double dot);
 t_color			color_add(t_color c1, t_color c2);
 t_color			color_add_value(t_color color, double r, double g, double b);
 t_color			color_define_value(int r, int g, int b);
@@ -238,10 +241,11 @@ t_cone			init_cone(t_cone cone);
 t_cylinder		init_cylinder(t_cylinder cylinder);
 t_plane			init_plane(t_plane plane);
 t_sphere		init_sphere(t_sphere sphere);
-void			intersect(t_prim *prim, t_i *i, t_base *base);
+void			intersect(t_prim *prim, t_i *i, t_base *base, t_vector normal);
 void			intersect_first(t_prim *prim, t_i *i, t_base *base);
 double			intersect_prim(t_prim *prim, t_i i, t_base base);
 double			intersect_prim_first(t_prim *prim, int i, t_base base);
+int				is_prim(t_prim *prim, t_base base);
 void			fail(int i);
 void			find_cam(t_i *i, t_prim *prim);
 int				find_light(t_i i, t_prim *prim);
@@ -255,6 +259,7 @@ void			light_ch(int fd);
 t_color			l_effect(t_color diff, t_color spe, double amb, t_color c);
 void			light_fill(int fd, t_prim *prim, int index);
 void			main_algo(t_base base, t_prim *prim, t_mlx mlx, t_i i);
+void			move_origin(t_base *base, t_vector nm);
 t_color			multi_l_co(t_prim *prim, t_base base, t_color color, t_i i);
 t_color			multi_l_cy(t_prim *prim, t_base base, t_color color, t_i i);
 t_color			multi_l_p(t_prim *prim, t_base base, t_color color, t_i i);
@@ -274,7 +279,8 @@ void			reflection(t_base *base, t_prim *prim);
 void			reflect_algo(t_base *base, t_prim *prim, t_i *i);
 void			reflect_check(char *line);
 int				reflect_extract(int fd);
-void			refraction(t_base *base, t_prim *prim);
+void			refraction(t_base *base, t_prim *prim, t_vector *normal);
+void			refraction_algo(t_base *base, t_i *i, t_prim *prim);
 void			refract_check(char *line);
 double			refract_extract(int fd);
 int				shadow(t_prim *prim, t_i i, t_light light, t_vector inter_p);
@@ -288,6 +294,7 @@ int				str_isdot(char *str);
 int				str_isdouble(char *str);
 t_vector		upleft_calc(t_base base);
 t_vector		vec_add(t_vector a, t_vector b);
+t_vector		vec_create(double a, double b, double c);
 t_vector		vec_sub(t_vector a, t_vector b);
 t_vector		vec_mult(t_vector a, t_vector b);
 t_vector		vec_div(t_vector a, t_vector b);

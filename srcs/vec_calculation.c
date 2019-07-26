@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:37:02 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/17 14:42:25 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:35:40 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ t_vector		vec_div(t_vector a, t_vector b)
 	vec.y = a.y / b.y;
 	vec.z = a.z / b.z;
 	return (vec);
+}
+
+t_vector		vec_create(double a, double b, double c)
+{
+	t_vector	vector;
+
+	vector.x = a;
+	vector.y = b;
+	vector.z = c;
+	return (vector);
 }

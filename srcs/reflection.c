@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 14:40:24 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:41:54 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:43:14 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void		reflect_algo(t_base *base, t_prim *prim, t_i *i)
 	&& ++i->ref < MAXDEPTH)
 	{
 		reflection(base, prim);
-		intersect(prim, i, base);
+		intersect(prim, i, base, vec_create(0.0, 0.0, 0.0));
 	}
 }

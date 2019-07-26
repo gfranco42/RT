@@ -6,7 +6,7 @@
 #    By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/01 18:05:34 by gfranco           #+#    #+#              #
-#    Updated: 2019/02/04 09:53:34 by gfranco          ###   ########.fr        #
+#    Updated: 2019/07/23 17:20:22 by gfranco          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC = ft_atoi.c                \
 	  ft_strsub.c              \
 	  ft_strtrim.c             \
 	  ft_swap.c                \
+	  ft_swap_double.c         \
 	  ft_tolower.c             \
 	  ft_toupper.c             \
 	  get_next_line.c

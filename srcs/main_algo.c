@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:50:07 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:53:00 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:12:36 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void		main_algo(t_base base, t_prim *prim, t_mlx mlx, t_i i)
 			rein_value_ma(&base, &i, prim);
 			calc_dir(base.upleft, &base);
 			intersect_first(prim, &i, &base);
-			refraction(&base, prim);
+			refraction_algo(&base, &i, prim);
+		//	printf("%lf %lf\n", base.tools.n1, base.tools.n2);
 
 //				ATTENUATION COULEUR MIROIR
 //			i.idx = base.tools.i;
