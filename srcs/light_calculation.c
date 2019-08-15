@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 11:28:17 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/17 14:42:43 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:13:27 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,15 @@
 
 double		ambient_l(t_vector eye, t_vector normal, double intensity)
 {
-	double	ambient;
-
-	ambient = dot(eye, normal) * intensity;
-	return (ambient);
+	return(dot(eye, normal) * intensity);
 }
 
-t_color		diffuse_l_alt(t_vector normal, t_vector lr, t_color color)
+t_color		diffuse_l(t_vector normal, t_vector lr, t_color color, double i)
 {
 	t_color		diff;
 	double		di;
 
-	di = dot(normal, lr) * 1.0;
-	di = di < 0 ? 0 : di;
-	di *= di;
-	diff.r = color.r * di;
-	diff.g = color.g * di;
-	diff.b = color.b * di;
-	return (diff);
-}
-
-t_color		diffuse_l(t_vector normal, t_vector lr, t_color color)
-{
-	t_color		diff;
-	double		di;
-
-	di = -dot(normal, lr) * 1.0;
+	di = dot(normal, lr) * i;
 	di = di < 0 ? 0 : di;
 	di *= di;
 	diff.r = color.r * di;
@@ -63,6 +46,14 @@ t_color		specular_l(t_vector normal, t_vector half, t_color color, int sign)
 	spec.g = color.g * si;
 	spec.b = color.b * si;
 	return (spec);
+}
+
+t_color		l_scale(t_color effect)
+{
+	effect.r = (effect.r / 255.0) / ((effect.r / 255.0) + 1) * 255.0;
+	effect.g = (effect.g / 255.0) / ((effect.g / 255.0) + 1) * 255.0;
+	effect.b = (effect.b / 255.0) / ((effect.b / 255.0) + 1) * 255.0;
+	return (effect);
 }
 
 t_color		l_effect(t_color diff, t_color spec, double amb, t_color color)

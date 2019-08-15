@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 19:59:41 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:47:47 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/04 13:48:06 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void		plane_check_ext(int fd, char *line)
 {
 	if (get_next_line(fd, &line) > 0)
 		refract_check(line);
+	else
+		fail(1);
+	if (ft_strcmp(line, "") == 0)
+		fail(1);
+	free(line);
+	if (get_next_line(fd, &line) > 0)
+		transparence_check(line);
 	else
 		fail(1);
 	if (ft_strcmp(line, "") == 0)
@@ -43,9 +50,12 @@ void		plane_ch(int fd)
 		free(line);
 	}
 	if (get_next_line(fd, &line) > 0)
+	{
+
 		reflect_check(line);
-	else
-		fail(1);
+	}
+	/*else
+		fail(1);*/
 	if (ft_strcmp(line, "") == 0)
 		fail(1);
 	free(line);
@@ -61,5 +71,6 @@ void		plane_fill(int fd, t_prim *prim, int index)
 	prim[index].plane.color = first_cap(prim[index].plane.color);
 	prim[index].reflect = reflect_extract(fd);
 	prim[index].refract = refract_extract(fd);
+	prim[index].transparence = transparence_extract(fd);
 	prim[index].type = PLANE;
 }

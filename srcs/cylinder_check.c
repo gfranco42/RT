@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 20:00:22 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 18:47:44 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/01 17:11:25 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void		cylinder_ch_ext(int fd, char *line)
 	free(line);
 	if (get_next_line(fd, &line) > 0)
 		refract_check(line);
+	else
+		fail(1);
+	if (ft_strcmp(line, "") == 0)
+		fail(1);
+	free(line);
+	if (get_next_line(fd, &line) > 0)
+		transparence_check(line);
 	else
 		fail(1);
 	if (ft_strcmp(line, "") == 0)
@@ -72,5 +79,6 @@ void		cylinder_fill(int fd, t_prim *prim, int index)
 	prim[index].cyl.radius = double_extract(fd);
 	prim[index].reflect = reflect_extract(fd);
 	prim[index].refract = refract_extract(fd);
+	prim[index].transparence = transparence_extract(fd);
 	prim[index].type = CYLINDER;
 }

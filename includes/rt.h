@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 12:18:42 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/25 15:44:23 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/14 16:10:39 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
-# define MAXDEPTH 100
 # define TRUE 1
 # define FALSE 0
+# define MAX_DEPTH 5
+# define MAX_DIST 200000.0
+# define MAX_PERCENT 100
 
 typedef struct	s_color
 {
@@ -82,7 +84,6 @@ typedef struct	s_sphere
 	t_vector	center;
 	t_color		color;
 	double		radius;
-	int			reflect;
 }				t_sphere;
 
 typedef struct	s_cone
@@ -91,7 +92,6 @@ typedef struct	s_cone
 	t_color		color;
 	t_vector	dir;
 	double		angle;
-	int			reflect;
 }				t_cone;
 
 typedef struct	s_plane
@@ -99,7 +99,6 @@ typedef struct	s_plane
 	t_vector	normal;
 	t_color		color;
 	t_vector	point;
-	int			reflect;
 }				t_plane;
 
 typedef struct	s_cylinder
@@ -108,7 +107,6 @@ typedef struct	s_cylinder
 	t_vector	dir;
 	t_color		color;
 	double		radius;
-	int			reflect;
 }				t_cylinder;
 
 typedef struct	s_object
@@ -141,8 +139,10 @@ typedef struct	s_base
 	t_ray		reflect;
 	t_cam		cam;
 	t_vector	upleft;
+	t_vector	normal;
 	t_tools		tools;
 	int			in;
+	int			check;
 }				t_base;
 
 typedef struct	s_mlx
@@ -155,6 +155,17 @@ typedef struct	s_mlx
 	int		s_l;
 	int		endian;
 }				t_mlx;
+
+typedef struct	s_l_pack
+{
+	t_vector	half;
+	t_vector	normal;
+	t_vector	inter_p;
+	t_vector	direction;
+	t_color		diffuse;
+	t_color		specular;
+	double		ambient;
+}				t_l_pack;
 
 typedef struct	s_all
 {
@@ -180,6 +191,7 @@ typedef struct	s_i
 {
 	int		i;
 	int		j;
+	int		recu;
 	int		ref;
 	int		cm;
 	int		idx;
@@ -191,7 +203,8 @@ typedef struct	s_i
 typedef	struct	s_prim
 {
 	t_type				type;
-	int					reflect;
+	double				transparence;
+	double				reflect;
 	double				refract;
 	t_sphere			sphere;
 	t_plane				plane;
@@ -207,11 +220,16 @@ void			calc_dir(t_vector upleft, t_base *base);
 void			camera_ch(int fd);
 void			camera_fill(int fd, t_prim *prim, int index);
 t_color			cap(t_color color);
+t_color			check_shadow(t_prim *prim, t_i i, t_base base, t_color color);
 int				check_vec3(char *line);
 double			clamp(int i, int j, double dot);
 t_color			color_add(t_color c1, t_color c2);
 t_color			color_add_value(t_color color, double r, double g, double b);
+t_color			color_mult(t_color color1, t_color color2);
+t_color			color_sub(t_color color, t_color tmp);
+t_color			color_mult_value(t_color color, double div);
 t_color			color_define_value(int r, int g, int b);
+t_color			color_div_value(t_color color, int value);
 t_color			color_extract(int fd);
 void			cone_ch(int fd);
 void			cone_fill(int fd, t_prim *prim, int index);
@@ -223,15 +241,15 @@ void			cylinder_ch(int fd);
 void			cylinder_fill(int fd, t_prim *prim, int index);
 int				cylinder_intersect(t_cylinder cyl, t_ray ray, double t);
 int				cyl_light_inter(t_cylinder cyl, t_light light, t_vector int_p);
-t_color			diffuse_l(t_vector normal, t_vector lr, t_color color);
+t_color			diffuse_l(t_vector normal, t_vector lr, t_color color, double i);
 t_color			diffuse_l_alt(t_vector normal, t_vector lr, t_color color);
 double			dot(t_vector a, t_vector b);
 double			double_extract(int fd);
-void			draw_cone(t_base base, t_prim *prim, t_mlx mlx, t_i i);
-void			draw_cyl(t_base base, t_prim *prim, t_mlx mlx, t_i i);
-void			draw_plane(t_base base, t_prim *prim, t_mlx mlx, t_i i);
-void			draw_prim(t_prim *prim, t_base base, t_mlx mlx, t_i i);
-void			draw_sphere(t_base base, t_prim *prim, t_mlx mlx, t_i i);
+t_color			draw_cone(t_base base, t_prim *prim, t_i i);
+t_color			draw_cyl(t_base base, t_prim *prim, t_i i);
+t_color			draw_plane(t_base base, t_prim *prim, t_i i);
+t_color			draw_prim(t_prim *prim, t_base base, t_i i);
+t_color			draw_sphere(t_base base, t_prim *prim, t_i i);
 t_vector		getnm_co(t_vector	inter_p, t_cone cone, t_ray ray, double t);
 t_vector		gtnm_cyl(t_cylinder cyl, t_vector i_p, t_ray ray, double t);
 t_vector		getnormal_sphere(t_sphere sphere, t_vector inter_p);
@@ -245,6 +263,8 @@ void			intersect(t_prim *prim, t_i *i, t_base *base, t_vector normal);
 void			intersect_first(t_prim *prim, t_i *i, t_base *base);
 double			intersect_prim(t_prim *prim, t_i i, t_base base);
 double			intersect_prim_first(t_prim *prim, int i, t_base base);
+void			inter_reflect(t_prim *prim, t_i i, t_base *base);
+void			inter_refract(t_prim *prim, t_i i, t_base *base, t_vector nm);
 int				is_prim(t_prim *prim, t_base base);
 void			fail(int i);
 void			find_cam(t_i *i, t_prim *prim);
@@ -252,11 +272,14 @@ int				find_light(t_i i, t_prim *prim);
 t_color			first_cap(t_color color);
 void			free_prim(t_prim ***prim, int len);
 void			free_tab(char **tab, int len);
+t_color			get_color_prim(t_prim *prim, t_base base);
 double			get_double(char **split);
 int				key(int key, void *param);
 int				lexer(char *file, int number, int *cam);
 void			light_ch(int fd);
-t_color			l_effect(t_color diff, t_color spe, double amb, t_color c);
+t_color			l_effect(t_color diff, t_color spe, double amb, t_color color);
+t_color			l_scale(t_color effect);
+t_l_pack		light_calcul(t_prim *prim, t_base base, t_i i, t_l_pack pack);
 void			light_fill(int fd, t_prim *prim, int index);
 void			main_algo(t_base base, t_prim *prim, t_mlx mlx, t_i i);
 void			move_origin(t_base *base, t_vector nm);
@@ -265,6 +288,7 @@ t_color			multi_l_cy(t_prim *prim, t_base base, t_color color, t_i i);
 t_color			multi_l_p(t_prim *prim, t_base base, t_color color, t_i i);
 t_color			multi_l_s(t_prim *prim, t_base base, t_color color, t_i i);
 int				name_obj(char *line);
+t_color			new_scale(t_color effect);
 double			norm(t_vector v);
 t_vector		nrmz(t_vector v);
 void			plane_ch(int fd);
@@ -275,15 +299,17 @@ t_prim			*parser(char *file, int number, t_prim *prim);
 void			print_pixel(t_mlx mlx, t_tools tools, t_color color);
 double			power(double i, int power_value);
 void			put_color(int x, int y, unsigned int *str, double dt);
-void			reflection(t_base *base, t_prim *prim);
+t_color			reflection(t_base base, t_prim *prim, t_i i, t_color reflect_color);
 void			reflect_algo(t_base *base, t_prim *prim, t_i *i);
 void			reflect_check(char *line);
-int				reflect_extract(int fd);
-void			refraction(t_base *base, t_prim *prim, t_vector *normal);
-void			refraction_algo(t_base *base, t_i *i, t_prim *prim);
+double			reflect_extract(int fd);
+t_color			refraction(t_base base, t_prim *prim, t_i i, t_color refract_color);
+void			refract_algo(t_base *base, t_i *i, t_prim *prim);
 void			refract_check(char *line);
 double			refract_extract(int fd);
-int				shadow(t_prim *prim, t_i i, t_light light, t_vector inter_p);
+void			scale_indices(double *reflect, double *transparence);
+t_color			shade(t_base base, t_prim *prim, t_i i, t_color color);
+int				shadow(t_prim *prim, t_i i, t_base base, t_vector inter_p);
 t_color			specular_l(t_vector norm, t_vector half, t_color c, int sign);
 void			sphere_ch(int fd);
 void			sphere_fill(int fd, t_prim *prim, int index);
@@ -292,6 +318,8 @@ int				sphere_light_int(t_sphere sphere, t_light light, t_vector i_p);
 int				str_isdigit(char *str);
 int				str_isdot(char *str);
 int				str_isdouble(char *str);
+void			transparence_check(char *line);
+double			transparence_extract(int fd);
 t_vector		upleft_calc(t_base base);
 t_vector		vec_add(t_vector a, t_vector b);
 t_vector		vec_create(double a, double b, double c);

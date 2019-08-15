@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 11:10:37 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/22 16:14:57 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/01 12:16:20 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_vector	getnormal_sphere(t_sphere sphere, t_vector inter_p)
 	normal.x = sphere.center.x - inter_p.x;
 	normal.y = sphere.center.y - inter_p.y;
 	normal.z = sphere.center.z - inter_p.z;
+//	printf("1  n.x %lf, n.y %lf, n.z %lf\n", normal.x, normal.y, normal.z);
 	normal = nrmz(normal);
+//	printf("2  n.x %lf, n.y %lf, n.z %lf\n", normal.x, normal.y, normal.z);
 	return (normal);
 }
 

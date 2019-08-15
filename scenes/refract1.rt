@@ -1,48 +1,52 @@
 sphere
-0 0 0
+450 500 550
 100
-255 255 0
+255 150 0
+reflect = 0
+refract = 0.0
+transparence = 0
+
+sphere
+550 500 450
+100
+0 150 255
 reflect = 0
 refract = 0.0
 transparence = 0
 
 plane
-0 500 0
-0 1.0 0.1
-255 0 255
+500 1000 500
+0 10.0 0.1
+255 0 150
 reflect = 0
 refract = 0.0
 transparence = 0
 
 plane
-600 0 0
-1.0 0 0.1
-255 0 255
+0 1000 500
+-10.0 0 0.1
+150 0 255
 reflect = 0
 refract = 0.0
 transparence = 0
 
 plane
--600 0 0
--1.0 0 -0.1
-255 0 255
-reflect = 0
-refract = 0.0
-transparence = 0
-
-plane
-0 -500 0
-0 -1.0 -0.1
-255 0 255
+1000 1000 500
+10.0 0 -0.1
+0 255 150
 reflect = 0
 refract = 0.0
 transparence = 0
 
 light
--500 0 -200
+100 100 1500
+255 255 255
+
+light
+800 100 1000
 255 255 255
 
 camera
-0 -200 -3000
-0 0 0
+500 500 -1000
+500 500 500
 0 1.0 0

@@ -6,7 +6,7 @@
 /*   By: gfranco <gfranco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 11:42:51 by gfranco           #+#    #+#             */
-/*   Updated: 2019/07/23 15:02:11 by gfranco          ###   ########.fr       */
+/*   Updated: 2019/08/02 16:31:40 by gfranco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ double		vec3_extract_z(char **split, char ***split2)
 	return (res.z);
 }
 
-int			reflect_extract(int fd)
+double			reflect_extract(int fd)
 {
 	char	*line;
 	char	**split;
@@ -69,10 +69,7 @@ int			reflect_extract(int fd)
 		fail(4);
 	if (!(split = ft_strsplit(line, ' ')))
 		fail(3);
-	if (ft_strcmp(split[2], "true") == 0)
-		return (TRUE);
-	else
-		return (FALSE);
+	return (atod(split[2]));
 }
 
 double		refract_extract(int fd)
